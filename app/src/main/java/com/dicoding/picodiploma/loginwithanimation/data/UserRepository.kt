@@ -16,10 +16,6 @@ class UserRepository private constructor(
         userPreference.saveSession(user)
     }
 
-    suspend fun saveToken(token: String) {
-        userPreference.saveToken(token)
-    }
-
     suspend fun login(email: String, password: String): LoginResponse {
         return apiService.login(email, password)
     }

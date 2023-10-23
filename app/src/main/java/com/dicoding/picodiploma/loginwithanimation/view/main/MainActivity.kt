@@ -1,16 +1,17 @@
 package com.dicoding.picodiploma.loginwithanimation.view.main
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.loginwithanimation.R
+import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
+import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
 import com.dicoding.picodiploma.loginwithanimation.view.welcome.WelcomeActivity
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+    private val storyAdapter = StoryAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,28 +31,29 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        viewModel.getSession().observe(this) { user ->
+        val recyclerView = binding.rvStory
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = storyAdapter
+
+        val sessionLiveData = viewModel.getSession()
+        sessionLiveData.observe(this) { user ->
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
+            } else {
+                // Pengguna telah login, Anda dapat mengakses token dari UserModel
+                val token = user.token
+
+                // Panggil getStories dari ViewModel dengan token
+                viewModel.getStories(token)
             }
         }
 
-        setupView()
+        viewModel.listStory.observe(this) { stories ->
+            setUserStories(stories)
+        }
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -58,17 +61,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.action_add_story -> {
 
             }
+
             R.id.action_setting -> {
 
             }
+
             R.id.action_logout -> {
                 viewModel.logout()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setUserStories(stories: List<ListStoryItem>) {
+        storyAdapter.submitList(stories)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 }

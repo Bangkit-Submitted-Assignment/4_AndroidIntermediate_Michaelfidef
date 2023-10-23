@@ -4,22 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.dicoding.picodiploma.loginwithanimation.data.UserRepository
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
 import com.dicoding.picodiploma.loginwithanimation.data.response.ErrorResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
+import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
     private val loginResponse = MutableLiveData<LoginResponse>()
-//    private val loginMessage = MutableLiveData<String>()
-
-    fun getLoginResponse(): LiveData<LoginResponse> {
-        return loginResponse
-    }
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
@@ -27,31 +24,15 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun login(email: String, password: String) {
-        viewModelScope.launch {
-            try {
-//                val message = repository.login(email, password).message
-                val response = repository.login(email, password)
-                if (response.error == false) {
-                    val token = response.loginResult?.token
-                    if (token != null) {
-                        repository.saveToken(token)
-                        Log.d("Login", "Success: ${response.message}")
-                    } else {
-                        Log.e("Login", "Token is missing in response")
-                    }
-//                    response.message = "Login berhasil"
-                } else {
-                    Log.e("Login", "Error: ${response.message}")
-                }
-                loginResponse.value = response
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                Log.e("Login", "Error: $errorMessage")
-//                loginMessage.value = "Login gagal : $errorMessage"
-            }
+    fun login(email: String, password: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val message = repository.login(email, password).message
+            emit(ResultState.Success(message))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+            emit(ResultState.Error(errorBody.message.toString()))
         }
     }
 }

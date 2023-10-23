@@ -1,40 +1,32 @@
 package com.dicoding.picodiploma.loginwithanimation.view.signup
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.liveData
 import com.dicoding.picodiploma.loginwithanimation.data.UserRepository
-import com.dicoding.picodiploma.loginwithanimation.data.response.ErrorResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.RegisterResponse
+import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.google.gson.Gson
-import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
-class SignupViewModel (private val repository: UserRepository): ViewModel() {
+class SignupViewModel(private val repository: UserRepository) : ViewModel() {
     private val registerResponse = MutableLiveData<RegisterResponse>()
     private val registrationResult: LiveData<RegisterResponse>
         get() = registerResponse
 
-    fun getRegisterResponse(): LiveData<RegisterResponse> {
-        return registerResponse
-    }
-
-    fun register(name: String, email: String, password: String) {
-        viewModelScope.launch {
-            try {
-                val response = repository.register(name, email, password)
-                registerResponse.value = response
-
-                if (!response.error) {
-                    Log.d("Registration", "Success: ${response.message}")
-                } else {
-                    Log.e("Registration", "Error: ${response.message}")
-                }
-            } catch (e: Exception) {
-                Log.e("Registration", "Error: ${e.message}")
-            }
+    fun register(name: String, email: String, password: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            //get success message
+            val message = repository.register(name, email, password).message
+            emit(ResultState.Success(message))
+        } catch (e: HttpException) {
+            //get error message
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            emit(ResultState.Error(errorBody.message.toString()))
         }
     }
 }

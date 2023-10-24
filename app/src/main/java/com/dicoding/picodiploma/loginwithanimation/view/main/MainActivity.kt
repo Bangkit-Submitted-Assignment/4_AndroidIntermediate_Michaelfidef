@@ -1,20 +1,22 @@
 package com.dicoding.picodiploma.loginwithanimation.view.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.loginwithanimation.R
 import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
+import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
 import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
+import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
-import com.dicoding.picodiploma.loginwithanimation.view.welcome.WelcomeActivity
+import retrofit2.Call
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -35,23 +37,43 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = storyAdapter
 
-        val sessionLiveData = viewModel.getSession()
-        sessionLiveData.observe(this) { user ->
-            if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            } else {
-                // Pengguna telah login, Anda dapat mengakses token dari UserModel
-                val token = user.token
-
-                // Panggil getStories dari ViewModel dengan token
-                viewModel.getStories(token)
+        viewModel.getUserStory().observe(this) { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    showLoading(true)
+                }
+                is ResultState.Success -> {
+                    val storyResponse = result.data as StoryResponse
+                    val stories = storyResponse.listStory
+                    setUserStories(stories)
+                    showLoading(false)
+                }
+                is ResultState.Error -> {
+                    AlertDialog.Builder(this).apply {
+                        setTitle("Oops!")
+                        setMessage(result.error)
+                        setPositiveButton("Ok") { _, _ ->
+                        }
+                        show()
+                    }
+                    showLoading(false)
+                }
             }
         }
 
-        viewModel.listStory.observe(this) { stories ->
-            setUserStories(stories)
-        }
+//        val sessionLiveData = viewModel.getSession()
+//        sessionLiveData.observe(this) { user ->
+//            if (!user.isLogin) {
+//                startActivity(Intent(this, WelcomeActivity::class.java))
+//                finish()
+//            } else {
+//
+//            }
+//        }
+
+//        viewModel.listStory.observe(this) { stories ->
+//            setUserStories(stories)
+//        }
     }
 
 

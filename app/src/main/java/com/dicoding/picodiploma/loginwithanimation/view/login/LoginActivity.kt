@@ -10,13 +10,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.picodiploma.loginwithanimation.view.customButton.MyButton
 import com.dicoding.picodiploma.loginwithanimation.view.customButton.MyEmailText
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
+import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityLoginBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
@@ -117,16 +117,15 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            viewModel.saveSession(UserModel(email, "sample_token"))
-            viewModel.login(email, password)
             viewModel.login(email, password).observe(this) { result ->
                 if (result != null) {
                     when (result) {
                         is ResultState.Loading -> {
                             showLoading(true)
                         }
-
                         is ResultState.Success -> {
+                            val token = result.data?.loginResult?.token
+                            viewModel.saveSession(UserModel(email, token ?: ""))
                             AlertDialog.Builder(this).apply {
                                 setTitle("Yeah!")
                                 setMessage("Anda berhasil login. Mari kita buat Story!")
@@ -141,7 +140,6 @@ class LoginActivity : AppCompatActivity() {
                             }
                             showLoading(false)
                         }
-
                         is ResultState.Error -> {
                             AlertDialog.Builder(this).apply {
                                 setTitle("Oops!")

@@ -3,6 +3,7 @@ package com.dicoding.picodiploma.loginwithanimation.data
 import androidx.lifecycle.liveData
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserPreference
+import com.dicoding.picodiploma.loginwithanimation.data.response.DetailResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.RegisterResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
@@ -21,9 +22,21 @@ class UserRepository private constructor(
         try {
             val storyResponse = apiService.getAllStories()
             emit(ResultState.Success(storyResponse))
-        } catch (e : HttpException){
+        } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, StoryResponse::class.java)
+            emit(ResultState.Error(errorResponse.message.toString()))
+        }
+    }
+
+    fun getDetailUser(id: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val detailResponse = apiService.getUserDetail(id)
+            emit(ResultState.Success(detailResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, DetailResponse::class.java)
             emit(ResultState.Error(errorResponse.message.toString()))
         }
     }
@@ -47,7 +60,6 @@ class UserRepository private constructor(
     suspend fun logout() {
         userPreference.logout()
     }
-
 
     companion object {
         @Volatile

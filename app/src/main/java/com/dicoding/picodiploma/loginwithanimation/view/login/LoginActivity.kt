@@ -126,7 +126,6 @@ class LoginActivity : AppCompatActivity() {
                         is ResultState.Success -> {
                             val token = result.data.loginResult?.token
                             viewModel.saveSession(UserModel(email, token ?: ""))
-                            Log.d("println" , "${token}");
                             AlertDialog.Builder(this).apply {
                                 setTitle("Yeah!")
                                 setMessage("Anda berhasil login. Mari kita buat Story!")

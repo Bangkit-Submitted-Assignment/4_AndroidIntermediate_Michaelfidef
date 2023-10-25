@@ -1,7 +1,7 @@
 package com.dicoding.picodiploma.loginwithanimation.data.retrofit
 
 import com.dicoding.picodiploma.loginwithanimation.data.response.AddStoryResponse
-import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
+import com.dicoding.picodiploma.loginwithanimation.data.response.DetailResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.RegisterResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
@@ -14,6 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -33,6 +34,11 @@ interface ApiService {
 
     @GET("stories")
     suspend fun getAllStories(): StoryResponse
+
+    @GET("stories/{id}")
+    suspend fun getUserDetail(
+        @Path("id") id: String
+    ): DetailResponse
 
     @Multipart
     @POST("stories")

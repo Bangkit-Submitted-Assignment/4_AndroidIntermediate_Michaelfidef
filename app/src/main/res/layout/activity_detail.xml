@@ -10,31 +10,71 @@
         android:id="@+id/iv_story_detail"
         android:layout_width="320dp"
         android:layout_height="256dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tv_profile_detail"
-        android:layout_width="235dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/nama_profile_detail"
-        app:layout_constraintEnd_toEndOf="@+id/iv_story_detail"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="@+id/iv_story_detail"
-        app:layout_constraintTop_toBottomOf="@+id/iv_story_detail" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="372dp"
+        android:layout_height="346dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_story_detail"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="@id/iv_story_detail"
+        app:layout_constraintTop_toBottomOf="@id/iv_story_detail">
 
-    <TextView
-        android:id="@+id/tv_desciption_detail"
-        android:layout_width="311dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/description_detail"
-        app:layout_constraintEnd_toEndOf="@+id/tv_profile_detail"
-        app:layout_constraintStart_toStartOf="@+id/tv_profile_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profile_detail" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="244dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_story_detail"
+            tools:ignore="MissingConstraints">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="52dp"
+                android:layout_height="47dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.594"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.378"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_profile_detail"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="235dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/nama_profile_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.204"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/tv_desciption_detail"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="312dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/description_detail"
+                app:layout_constraintEnd_toEndOf="@+id/tv_profile_detail"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_profile_detail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_detail"
+                tools:text="@tools:sample/lorem/random" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

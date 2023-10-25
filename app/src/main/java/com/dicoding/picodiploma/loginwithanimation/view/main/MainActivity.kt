@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.loginwithanimation.R
 import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
-import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
 import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
@@ -88,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
             R.id.action_logout -> {
                 viewModel.logout()
+
             }
         }
         return super.onOptionsItemSelected(item)

@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -16,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.picodiploma.loginwithanimation.view.customButton.MyButton
 import com.dicoding.picodiploma.loginwithanimation.view.customButton.MyEmailText
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
-import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityLoginBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
@@ -124,8 +124,9 @@ class LoginActivity : AppCompatActivity() {
                             showLoading(true)
                         }
                         is ResultState.Success -> {
-                            val token = result.data?.loginResult?.token
+                            val token = result.data.loginResult?.token
                             viewModel.saveSession(UserModel(email, token ?: ""))
+                            Log.d("println" , "${token}");
                             AlertDialog.Builder(this).apply {
                                 setTitle("Yeah!")
                                 setMessage("Anda berhasil login. Mari kita buat Story!")

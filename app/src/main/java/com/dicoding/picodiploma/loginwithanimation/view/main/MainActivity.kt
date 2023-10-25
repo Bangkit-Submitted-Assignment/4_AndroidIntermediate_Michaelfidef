@@ -16,7 +16,6 @@ import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
-import retrofit2.Call
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -43,9 +42,9 @@ class MainActivity : AppCompatActivity() {
                     showLoading(true)
                 }
                 is ResultState.Success -> {
-                    val storyResponse = result.data as StoryResponse
-                    val stories = storyResponse.listStory
+                    val stories = result.data.listStory
                     setUserStories(stories)
+                    viewModel.getSession()
                     showLoading(false)
                 }
                 is ResultState.Error -> {
@@ -70,12 +69,7 @@ class MainActivity : AppCompatActivity() {
 //
 //            }
 //        }
-
-//        viewModel.listStory.observe(this) { stories ->
-//            setUserStories(stories)
-//        }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

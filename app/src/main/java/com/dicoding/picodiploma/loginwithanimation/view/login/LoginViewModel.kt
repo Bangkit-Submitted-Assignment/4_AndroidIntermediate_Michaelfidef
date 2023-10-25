@@ -22,7 +22,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
     fun login(email: String, password: String) = liveData {
         emit(ResultState.Loading)
         try {
-            val message = repository.login(email, password).message
+            val message = repository.login(email, password)
             emit(ResultState.Success(message))
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

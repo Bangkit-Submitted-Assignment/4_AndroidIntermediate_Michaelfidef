@@ -4,6 +4,7 @@ import com.dicoding.picodiploma.loginwithanimation.data.response.AddStoryRespons
 import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.RegisterResponse
+import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -31,7 +32,7 @@ interface ApiService {
     ): LoginResponse
 
     @GET("stories")
-    suspend fun getAllStories(): Call<ListStoryItem>
+    suspend fun getAllStories(): StoryResponse
 
     @Multipart
     @POST("stories")

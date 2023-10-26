@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.loginwithanimation.data.story
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -33,7 +32,6 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
         holder.itemView.setOnClickListener {
             val detailIntent = Intent(holder.itemView.context, DetailActivity::class.java)
             detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
-            Log.d("adapter", "id :  ${list.id}")
             holder.itemView.context.startActivities(arrayOf(detailIntent))
 
             val optionsCompat: ActivityOptionsCompat =

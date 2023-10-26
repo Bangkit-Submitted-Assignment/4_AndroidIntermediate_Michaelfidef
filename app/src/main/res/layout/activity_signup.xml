@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/image_signup" />
+        app:srcCompat="@drawable/story_daftar" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -154,17 +154,17 @@
 
     <com.dicoding.picodiploma.loginwithanimation.view.customButton.MyButton
         android:id="@+id/signupButton"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_width="223dp"
+        android:layout_height="46dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:alpha="0"
         android:text="@string/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
-        android:alpha="0"
-        tools:alpha="100"/>
+        tools:alpha="100" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"

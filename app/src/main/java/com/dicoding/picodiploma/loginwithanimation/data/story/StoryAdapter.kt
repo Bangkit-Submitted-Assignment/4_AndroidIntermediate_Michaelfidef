@@ -24,12 +24,11 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val imgPhoto: ImageView = holder.itemView.findViewById(R.id.iv_item_photo)
-        val tvName: TextView = holder.itemView.findViewById(R.id.tv_item_name)
-
         val list = getItem(position)
         holder.bind(list)
         holder.itemView.setOnClickListener {
+            val imgPhoto: ImageView = holder.itemView.findViewById(R.id.iv_item_photo)
+            val tvName: TextView = holder.itemView.findViewById(R.id.tv_item_name)
             val detailIntent = Intent(holder.itemView.context, DetailActivity::class.java)
             detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
             holder.itemView.context.startActivities(arrayOf(detailIntent))

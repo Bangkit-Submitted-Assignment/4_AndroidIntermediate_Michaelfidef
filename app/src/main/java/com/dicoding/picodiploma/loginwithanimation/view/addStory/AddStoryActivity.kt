@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import com.dicoding.picodiploma.loginwithanimation.data.getImageUri
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityAddStoryBinding
 
 class AddStoryActivity : AppCompatActivity() {
@@ -18,9 +19,9 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnGaleryStory.setOnClickListener{startGallery()}
-        binding.btnCameraStory.setOnClickListener{startCamera()}
-        binding.btnUploadStory.setOnClickListener{uploadImage()}
+        binding.btnGaleryStory.setOnClickListener { startGallery() }
+        binding.btnCameraStory.setOnClickListener { startCamera() }
+        binding.btnUploadStory.setOnClickListener { uploadImage() }
     }
 
     private fun startGallery() {
@@ -45,8 +46,17 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun startCamera(){
-        Toast.makeText(this, "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+    private fun startCamera() {
+        currentImageUri = getImageUri(this)
+        launcherIntentCamera.launch(currentImageUri)
+    }
+
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            showImage()
+        }
     }
 
     private fun uploadImage() {

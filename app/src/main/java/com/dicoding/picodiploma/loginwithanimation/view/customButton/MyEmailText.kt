@@ -20,10 +20,16 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
     constructor(context: Context) : super(context) {
         init()
     }
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
     }
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -32,13 +38,15 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
     }
 
     private fun init() {
-        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
+        clearButtonImage =
+            ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
         setOnTouchListener(this)
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // Do nothing.
             }
+
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.toString().isNotEmpty()) showClearButton() else hideClearButton()
 
@@ -50,6 +58,7 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
                     error = null
                 }
             }
+
             override fun afterTextChanged(s: Editable) {
                 // Do nothing.
             }
@@ -59,16 +68,17 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
     private fun showClearButton() {
         setButtonDrawables(endOfTheText = clearButtonImage)
     }
+
     private fun hideClearButton() {
         setButtonDrawables()
     }
 
     private fun setButtonDrawables(
         startOfTheText: Drawable? = null,
-        topOfTheText:Drawable? = null,
-        endOfTheText:Drawable? = null,
+        topOfTheText: Drawable? = null,
+        endOfTheText: Drawable? = null,
         bottomOfTheText: Drawable? = null
-    ){
+    ) {
         setCompoundDrawablesWithIntrinsicBounds(
             startOfTheText,
             topOfTheText,
@@ -76,6 +86,7 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
             bottomOfTheText
         )
     }
+
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         if (compoundDrawables[2] != null) {
             val clearButtonStart: Float
@@ -95,18 +106,26 @@ class MyEmailText : AppCompatEditText, View.OnTouchListener {
             if (isClearButtonClicked) {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_baseline_close_24
+                        ) as Drawable
                         showClearButton()
                         return true
                     }
+
                     MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_baseline_close_24
+                        ) as Drawable
                         when {
                             text != null -> text?.clear()
                         }
                         hideClearButton()
                         return true
                     }
+
                     else -> return false
                 }
             } else return false

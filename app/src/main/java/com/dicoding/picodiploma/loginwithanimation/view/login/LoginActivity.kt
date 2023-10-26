@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -52,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // Do nothing
+
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -123,6 +122,7 @@ class LoginActivity : AppCompatActivity() {
                         is ResultState.Loading -> {
                             showLoading(true)
                         }
+
                         is ResultState.Success -> {
                             val token = result.data.loginResult?.token
                             viewModel.saveSession(UserModel(email, token ?: ""))
@@ -131,7 +131,8 @@ class LoginActivity : AppCompatActivity() {
                                 setMessage("Anda berhasil login. Mari kita buat Story!")
                                 setPositiveButton("Lanjut") { _, _ ->
                                     val intent = Intent(context, MainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    intent.flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
                                     finish()
                                 }
@@ -140,6 +141,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                             showLoading(false)
                         }
+
                         is ResultState.Error -> {
                             AlertDialog.Builder(this).apply {
                                 setTitle("Oops!")

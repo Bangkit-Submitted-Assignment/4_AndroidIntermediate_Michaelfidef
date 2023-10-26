@@ -1,6 +1,5 @@
 package com.dicoding.picodiploma.loginwithanimation.view.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -52,12 +51,14 @@ class MainActivity : AppCompatActivity() {
                 is ResultState.Loading -> {
                     showLoading(true)
                 }
+
                 is ResultState.Success -> {
                     val stories = result.data.listStory
                     setUserStories(stories)
                     viewModel.getSession()
                     showLoading(false)
                 }
+
                 is ResultState.Error -> {
                     AlertDialog.Builder(this).apply {
                         setTitle("Oops!")
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.actionAdd.setOnClickListener{
+        binding.actionAdd.setOnClickListener {
             val intent = Intent(this@MainActivity, AddStoryActivity::class.java)
             startActivity(intent)
         }
@@ -90,10 +91,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_setting -> {
-
-            }
-
             R.id.action_logout -> {
                 viewModel.logout()
             }

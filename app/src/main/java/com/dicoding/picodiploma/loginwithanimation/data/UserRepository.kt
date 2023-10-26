@@ -53,7 +53,7 @@ class UserRepository private constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, AddStoryResponse::class.java)
             emit(ResultState.Error(errorResponse.message))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             emit(ResultState.Error(e.message.toString()))
         }
     }

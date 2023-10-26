@@ -1,5 +1,7 @@
 package com.dicoding.picodiploma.loginwithanimation.view.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +17,8 @@ import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
+import com.dicoding.picodiploma.loginwithanimation.view.addStory.AddStoryActivity
+import com.dicoding.picodiploma.loginwithanimation.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -30,6 +34,14 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        val sessionLiveData = viewModel.getSession()
+        sessionLiveData.observe(this) { user ->
+            if (!user.isLogin) {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
+            }
+        }
 
         val recyclerView = binding.rvStory
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -59,15 +71,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        val sessionLiveData = viewModel.getSession()
-//        sessionLiveData.observe(this) { user ->
-//            if (!user.isLogin) {
-//                startActivity(Intent(this, WelcomeActivity::class.java))
-//                finish()
-//            } else {
-//
-//            }
-//        }
+        binding.actionAdd.setOnClickListener{
+            val intent = Intent(this@MainActivity, AddStoryActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -77,17 +85,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_add_story -> {
-
-            }
-
             R.id.action_setting -> {
 
             }
 
             R.id.action_logout -> {
                 viewModel.logout()
-
             }
         }
         return super.onOptionsItemSelected(item)

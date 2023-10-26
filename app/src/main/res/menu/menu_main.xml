@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add_story"
-        android:icon="@drawable/baseline_add_a_story_24"
-        app:showAsAction="always"
-        android:title="@string/add_story" />
-    <item
         android:id="@+id/action_setting"
         android:icon="@drawable/baseline_settings_24"
         app:showAsAction="always"

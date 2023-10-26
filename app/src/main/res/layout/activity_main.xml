@@ -38,4 +38,15 @@
         app:layout_constraintVertical_bias="0.499"
         tools:visibility="visible" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_add_a_story_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

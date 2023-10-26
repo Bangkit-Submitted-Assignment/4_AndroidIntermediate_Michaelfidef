@@ -1,9 +1,13 @@
 package com.dicoding.picodiploma.loginwithanimation.data.story
 
+import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +15,8 @@ import com.bumptech.glide.Glide
 import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
 import com.dicoding.picodiploma.loginwithanimation.databinding.ItemUserBinding
 import com.dicoding.picodiploma.loginwithanimation.view.detail.DetailActivity
+import androidx.core.util.Pair
+import com.dicoding.picodiploma.loginwithanimation.R
 
 class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -19,6 +25,9 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        val imgPhoto: ImageView = holder.itemView.findViewById(R.id.iv_item_photo)
+        val tvName: TextView = holder.itemView.findViewById(R.id.tv_item_name)
+
         val list = getItem(position)
         holder.bind(list)
         holder.itemView.setOnClickListener {
@@ -26,6 +35,14 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
             detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
             Log.d("adapter", "id :  ${list.id}")
             holder.itemView.context.startActivities(arrayOf(detailIntent))
+
+            val optionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity,
+                    Pair(imgPhoto, "profile"),
+                    Pair(tvName, "name"),
+                )
+            holder.itemView.context.startActivity(detailIntent, optionsCompat.toBundle())
         }
     }
 
@@ -33,8 +50,8 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
         RecyclerView.ViewHolder(binding.root) {
         fun bind(story: ListStoryItem) {
             Glide.with(binding.root.context)
-                .load(story.photoUrl).into(binding.ciProfileImage)
-            binding.tvProfileName.text = story.name
+                .load(story.photoUrl).into(binding.ivItemPhoto)
+            binding.tvItemName.text = story.name
         }
     }
 

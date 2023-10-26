@@ -21,7 +21,8 @@
     <string name="add_story">add story</string>
     <string name="setting">setting</string>
     <string name="exit">exit</string>
-    <string name="nama_profile_detail">nama profile</string>
-    <string name="description_detail">description</string>
+    <string name="upload_addStory">Upload</string>
+    <string name="gallery_addStory">Gallery</string>
+    <string name="camera_addStory">Camera</string>
 
 </resources>

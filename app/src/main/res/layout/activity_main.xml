@@ -13,7 +13,7 @@
         android:background="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="My Story"/>
+        app:title="The Story" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_story"

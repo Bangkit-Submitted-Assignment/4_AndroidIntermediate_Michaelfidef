@@ -41,7 +41,12 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnGaleryStory.setOnClickListener { startGallery() }
         binding.btnCameraStory.setOnClickListener { startCamera() }
         binding.btnUploadStory.setOnClickListener { uploadStory() }
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
+
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))

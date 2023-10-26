@@ -24,5 +24,6 @@
     <string name="upload_addStory">Upload</string>
     <string name="gallery_addStory">Gallery</string>
     <string name="camera_addStory">Camera</string>
+    <string name="empty_image_warning">Silakan masukkan berkas story terlebih dahulu.</string>
 
 </resources>

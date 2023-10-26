@@ -42,7 +42,7 @@ interface ApiService {
 
     @Multipart
     @POST("stories")
-    fun addstory(
+    fun uploadStory(
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
     ): Call<AddStoryResponse>

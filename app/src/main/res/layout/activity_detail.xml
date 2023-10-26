@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/iv_story_detail"
+        android:contentDescription="@string/tv_dec"
         android:transitionName="profile"
         android:layout_width="320dp"
         android:layout_height="256dp"

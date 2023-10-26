@@ -38,9 +38,11 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnGaleryStory.setOnClickListener { startGallery() }
-        binding.btnCameraStory.setOnClickListener { startCamera() }
-        binding.btnUploadStory.setOnClickListener { uploadStory() }
+        binding.apply {
+            btnCameraStory.setOnClickListener { startCamera()  }
+            btnGaleryStory.setOnClickListener { startGallery() }
+            btnUploadStory.setOnClickListener { uploadStory() }
+        }
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

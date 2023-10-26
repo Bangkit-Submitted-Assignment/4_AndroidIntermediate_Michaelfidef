@@ -9,6 +9,10 @@ android {
     compileSdk = 33
 
     defaultConfig {
+        buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
+    }
+
+    defaultConfig {
         applicationId = "com.dicoding.picodiploma.loginwithanimation"
         minSdk = 21
         targetSdk = 33

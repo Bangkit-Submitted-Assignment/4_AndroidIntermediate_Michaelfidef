@@ -24,8 +24,8 @@
             android:id="@+id/btn_camera_story"
             android:layout_width="160dp"
             android:layout_height="48dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/camera_addStory"
             app:layout_constraintEnd_toStartOf="@+id/btn_galery_story"
             app:layout_constraintTop_toBottomOf="@+id/iv_image_story" />
@@ -35,11 +35,11 @@
             android:layout_width="160dp"
             android:layout_height="48dp"
             android:layout_marginStart="252dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="69dp"
             android:text="@string/gallery_addStory"
             app:layout_constraintEnd_toEndOf="@+id/iv_image_story"
-            app:layout_constraintHorizontal_bias="0.823"
+            app:layout_constraintHorizontal_bias="0.614"
             app:layout_constraintStart_toStartOf="@+id/iv_image_story"
             app:layout_constraintTop_toBottomOf="@+id/iv_image_story" />
 
@@ -48,9 +48,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="346dp"
             android:layout_height="165dp"
-            android:layout_marginTop="116dp"
+            android:layout_marginTop="104dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_image_story"
-            app:layout_constraintHorizontal_bias="0.283"
+            app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="@+id/iv_image_story"
             app:layout_constraintTop_toBottomOf="@+id/iv_image_story">
 
@@ -66,12 +66,11 @@
 
         <ImageView
             android:id="@+id/iv_image_story"
-            android:layout_width="413dp"
-            android:layout_height="237dp"
+            android:layout_width="398dp"
+            android:layout_height="219dp"
 
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="76dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_place_holder" />

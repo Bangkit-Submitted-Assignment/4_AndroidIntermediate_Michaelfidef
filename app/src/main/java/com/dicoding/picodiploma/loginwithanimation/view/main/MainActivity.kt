@@ -17,6 +17,7 @@ import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBindi
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
 import com.dicoding.picodiploma.loginwithanimation.view.addStory.AddStoryActivity
+import com.dicoding.picodiploma.loginwithanimation.view.maps.MapsActivity
 import com.dicoding.picodiploma.loginwithanimation.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -93,6 +94,11 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_logout -> {
                 viewModel.logout()
+            }
+
+            R.id.action_maps -> {
+                intent = Intent(this@MainActivity, MapsActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

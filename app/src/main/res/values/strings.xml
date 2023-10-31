@@ -8,7 +8,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="message_login_page">Masukkan dulu datamu ya</string>
-    <string name="title_login_page">Sudah siap untuk upgrade skill?</string>
+    <string name="title_login_page">Sudah siap untuk bercerita?</string>
     <string name="name">Nama</string>
     <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
@@ -20,11 +20,17 @@
     <string name="login_email">Masukkan Email Anda</string>
     <string name="add_story">add story</string>
     <string name="setting">setting</string>
-    <string name="exit">exit</string>
     <string name="upload_addStory">Upload</string>
     <string name="gallery_addStory">Gallery</string>
     <string name="camera_addStory">Camera</string>
     <string name="empty_image_warning">Silakan masukkan berkas story terlebih dahulu.</string>
     <string name="tv_dec">Description</string>
+    <string name="menu_maps">maps</string>
+    <string name="menu_exit">exit</string>
+    <string name="title_activity_maps">Location Story</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 
 </resources>

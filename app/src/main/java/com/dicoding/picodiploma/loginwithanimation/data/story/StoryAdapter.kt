@@ -15,9 +15,10 @@ import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
 import com.dicoding.picodiploma.loginwithanimation.databinding.ItemUserBinding
 import com.dicoding.picodiploma.loginwithanimation.view.detail.DetailActivity
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import com.dicoding.picodiploma.loginwithanimation.R
 
-class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
@@ -25,12 +26,16 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.UserViewHolder>(DIF
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val list = getItem(position)
-        holder.bind(list)
+        if (list != null) {
+            holder.bind(list)
+        }
         holder.itemView.setOnClickListener {
             val imgPhoto: ImageView = holder.itemView.findViewById(R.id.iv_item_photo)
             val tvName: TextView = holder.itemView.findViewById(R.id.tv_item_name)
             val detailIntent = Intent(holder.itemView.context, DetailActivity::class.java)
-            detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
+            if (list != null) {
+                detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
+            }
             holder.itemView.context.startActivities(arrayOf(detailIntent))
 
             val optionsCompat: ActivityOptionsCompat =

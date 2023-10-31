@@ -1,14 +1,21 @@
 package com.dicoding.picodiploma.loginwithanimation.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
 import com.dicoding.picodiploma.loginwithanimation.data.pref.UserPreference
 import com.dicoding.picodiploma.loginwithanimation.data.response.AddStoryResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.DetailResponse
+import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
 import com.dicoding.picodiploma.loginwithanimation.data.response.LoginResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.RegisterResponse
 import com.dicoding.picodiploma.loginwithanimation.data.response.StoryResponse
 import com.dicoding.picodiploma.loginwithanimation.data.retrofit.ApiService
+import com.dicoding.picodiploma.loginwithanimation.data.story.StoryPagingSource
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -76,6 +83,17 @@ class UserRepository private constructor(
 
     suspend fun logout() {
         userPreference.logout()
+    }
+
+    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     companion object {

@@ -71,4 +71,7 @@ dependencies {
 
     implementation("androidx.exifinterface:exifinterface:1.3.6")
 
+    // paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
+
 }

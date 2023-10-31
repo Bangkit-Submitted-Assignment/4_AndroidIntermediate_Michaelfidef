@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.loginwithanimation.R
 import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
+import com.dicoding.picodiploma.loginwithanimation.data.story.LoadingStateAdapter
 import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
 import com.dicoding.picodiploma.loginwithanimation.di.ResultState
@@ -54,8 +55,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is ResultState.Success -> {
-                    val stories = result.data.listStory
-                    setUserStories(stories)
+                    getData()
                     viewModel.getSession()
                     showLoading(false)
                 }
@@ -104,11 +104,18 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setUserStories(stories: List<ListStoryItem>) {
-        storyAdapter.submitList(stories)
-    }
-
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun getData() {
+        binding.rvStory.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                storyAdapter.retry()
+            }
+        )
+        viewModel.story.observe(this) {
+            storyAdapter.submitData(lifecycle, it)
+        }
     }
 }

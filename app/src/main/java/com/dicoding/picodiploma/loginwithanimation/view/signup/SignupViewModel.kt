@@ -1,7 +1,5 @@
 package com.dicoding.picodiploma.loginwithanimation.view.signup
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.dicoding.picodiploma.loginwithanimation.data.UserRepository

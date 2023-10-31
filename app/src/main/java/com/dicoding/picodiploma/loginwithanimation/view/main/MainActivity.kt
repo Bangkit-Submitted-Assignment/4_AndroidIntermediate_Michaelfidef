@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.loginwithanimation.R
-import com.dicoding.picodiploma.loginwithanimation.data.response.ListStoryItem
 import com.dicoding.picodiploma.loginwithanimation.data.story.LoadingStateAdapter
 import com.dicoding.picodiploma.loginwithanimation.data.story.StoryAdapter
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
@@ -93,7 +92,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
-                viewModel.logout()
+                AlertDialog.Builder(this).apply {
+                    setTitle("Log Out")
+                    setMessage("Apakah anda yakin ingin keluar?")
+                    setPositiveButton("OK") { _, _ ->
+                        viewModel.logout()
+                    }
+                    create()
+                    show()
+                }
             }
 
             R.id.action_maps -> {

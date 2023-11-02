@@ -96,6 +96,20 @@ class UserRepository private constructor(
         ).liveData
     }
 
+    fun getStoriesWithLocation(location: Int) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val storyResponse = apiService.getStoriesWithLocation(location)
+            emit(ResultState.Success(storyResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, StoryResponse::class.java)
+            emit(ResultState.Error(errorResponse.message.toString()))
+        } catch (e: Exception) {
+            emit(ResultState.Error(e.message.toString()))
+        }
+    }
+
     companion object {
         fun getInstance(
             userPreference: UserPreference,

@@ -33,5 +33,8 @@
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
     <string name="retry">Coba lagi</string>
+    <string name="validasi_pass_8">Password tidak boleh kurang dari 8 karakter!</string>
+    <string name="validasi_1_besar">Password harus mengandung min 1 huruf besar!</string>
+    <string name="validasi_1_angka">Password harus mengandung min 1 angka!</string>
 
 </resources>

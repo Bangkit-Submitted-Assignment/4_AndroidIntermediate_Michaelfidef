@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.dicoding.picodiploma.loginwithanimation.R
 
 class MyPassText : AppCompatEditText {
     constructor(context: Context) : super(context) {
@@ -37,11 +38,11 @@ class MyPassText : AppCompatEditText {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val password = s.toString()
                 if (password.length < 8) {
-                    error = "Password tidak boleh kurang dari 8 karakter!"
+                    error = resources.getString(R.string.validasi_pass_8)
                 } else if (!password.matches(Regex(".*[A-Z].*"))) {
-                    error = "Password harus mengandung min 1 huruf besar!"
+                    error = resources.getString(R.string.validasi_1_besar)
                 } else if (!password.matches(Regex(".*\\d.*"))) {
-                    error = "Password harus mengandung min 1 angka!"
+                    error = resources.getString(R.string.validasi_1_angka)
                 } else {
                     error = null
                 }

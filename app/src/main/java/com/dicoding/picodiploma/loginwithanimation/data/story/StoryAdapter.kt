@@ -35,7 +35,6 @@ class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.UserViewHolde
             if (list != null) {
                 detailIntent.putExtra(DetailActivity.EXTRA_LOGIN, list.id)
             }
-            holder.itemView.context.startActivities(arrayOf(detailIntent))
 
             val optionsCompat: ActivityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(

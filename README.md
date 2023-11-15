@@ -3,54 +3,67 @@
 # Kriteria:
 **Fitur yang harus ada pada aplikasi:**
 
-  **1. Search User**
+  **1. Halaman Autentikasi**
      
      Syarat:
-      - Menampilkan list data user dari API menggunakan RecyclerView dengan data minimal foto avatar dan username.
-      - Pencarian user menggunakan data dari API berjalan dengan baik.
-      - Pengguna dapat melihat halaman detail dari hasil daftar pencarian.
-
-  **2. Detail User**
+      - Menampilkan halaman login untuk masuk ke dalam aplikasi. Berikut input yang dibutuhkan :
+         - Email (R.id.ed_login_email) dan Password (R.id.ed_login_password)
+      - Membuat halaman register untuk mendaftarkan diri dalam aplikasi. Berikut input yang dibutuhkan :
+         - Nama (R.id.ed_register_name), Email (R.id.ed_register_email) & Password (R.id.ed_register_password)
+      - Password wajib disembunyikan. Membuat Custom View berupa EditText pada halaman login atau register dengan ketentuan sebagai berikut:
+         - Jika jumlah password kurang dari 8 karakter, menampilkan pesan error secara langsung pada EditText tanpa harus pindah form atau klik tombol dulu.
+      - Menyimpan data sesi dan token di preferences. Data sesi digunakan untuk mengatur alur aplikasi dengan spesifikasi seperti berikut: 
+         - Jika sudah login langsung masuk ke halaman utama. Jika belum maka akan masuk ke halaman login. 
+      - Terdapat fitur untuk logout (R.id.action_logout) pada halaman utama dengan ketentuan sebagai berikut :
+         - Ketika tombol logout ditekan, informasi token, dan sesi harus dihapus.
+      
+  **2. Daftar Cerita (List Story)**
      
      Syarat:
-      - Terdapat informasi detail dari seorang user. Berikut beberapa informasi yang wajib ditampilkan pada halaman aplikasi. 
-         - Foto Avatar
-         - Username
-         - Nama
-         - Jumlah Followers
-         - Jumlah Following
-      - Catatan: Pastikan kembali semua informasi tersebut ada.
-      - Menampilkan fragment List Follower & List Following yang diambil dari API.
-      - Menggunakan Tab Layout dan ViewPager sebagai navigasi antara halaman List Follower dan List Following.
+      - Menampilkan daftar cerita dari API yang disediakan. Berikut minimal informasi yang wajib Anda tampilkan.
+         - Nama User (R.id.tv_item_name)
+         - Foto  (R.id.iv_item_photo)
+      - Muncul tampilan detail ketika salah satu item cerita ditekan. Berikut  minimal informasi yang wajib Anda tampilkan :
+         - Nama user (R.id.tv_detail_name)
+         - Foto (R.id.iv_detail_photo)
+         - Deskripsi (R.id.tv_detail_description)
 
-**3. Terdapat indikator loading saat aplikasi memuat data di semua bagian yang mengambil data dari API, yaitu**
+**3. Tambah Cerita**
 
-      - List data user
-      - Detail user
-      - List following
-      - List follower
+     Syarat :
+      - Membuat halaman untuk menambah cerita baru yang dapat diakses dari halaman daftar cerita. Berikut input minimal yang dibutuhkan :
+         - File foto (wajib bisa dari gallery)
+         - Deskripsi cerita (R.id.ed_add_description)
+      - Berikut adalah ketentuan dalam menambahkan cerita baru: 
+         - Terdapat tombol (R.id.button_add) untuk upload data ke server. 
+      - Setelah tombol tersebut diklik dan proses upload berhasil, maka akan kembali ke halaman daftar cerita. 
+         - Data cerita terbaru harus muncul di paling atas.
+         
+ **4. Menampilkan Animasi**
 
-# Penilaian:
-**1. Menerapkan tampilan aplikasi yang sesuai standar:**
+     Syarat :
+      - Membuat animasi pada aplikasi dengan menggunakan salah satu jenis animasi berikut.
+         - Property Animation, Motion Animation, Shared Element
+      - Tuliskan jenis dan lokasi animasi pada Student Note.
 
-      - Tampilan aplikasi memiliki width, height, margin, dan padding yang sesuai.
-      - Pemilihan warna yang sesuai tema aplikasi. 
-      - Tidak ada komponen yang saling bertumpuk.
-      - Penggunaan komponen yang sesuai dengan fungsinya.
-        Contoh : Komponen ImageView yang dijadikan sebagai button navigasi.
-      - Menggunakan SearchView pada fitur pencarian.
-      - Aplikasi bisa memberikan pesan eror jika data tidak berhasil ditampilkan.
+**5. Menampilkan Maps**
 
-**2. Menuliskan kode dengan bersih.**
+     Syarat :
+      - Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar. Bisa berupa marker maupun icon berupa gambar. Data story yang memiliki lokasi latitude dan longitude dapat diambil melalui parameter location seperti berikut
 
-      - Bersihkan comment dan kode yang tidak digunakan.
-      - Indentasi yang sesuai.
-      - Menghapus import yang tidak digunakan.
+**6. Paging List**
 
-**3. Aplikasi bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari potrait ke landscape atau sebaliknya.**
+     Syarat :
+      - Menampilkan list story dengan menggunakan Paging 3 dengan benar.
 
-**4. Mengasah penggunaan library networking selain LoopJ (seperti Retrofit, Fast Android Networking, dsb).**
+**3. Membuat Testing**
 
-**5. Menerapkan Android Architecture Component (minimal ViewModel dan LiveData) dengan benar.**
-
-      - Tidak membuat satu ViewModel untuk beberapa view sekaligus, tetapi dipisah.
+     Syarat :
+      - Menerapkan unit test pada fungsi di dalam ViewModel yang mengambil list data Paging.
+      - Berikut skenario yang harus Anda buat. Pastikan setiap skenario tersebut sudah ada kodenya : 
+         - Ketika berhasil memuat data cerita.
+            - data tidak null
+            - jumlah data sesuai dengan yang diharapkan.
+            - data pertama yang dikembalikan sesuai.
+      - Ketika tidak ada data cerita.
+         - Memastikan jumlah data yang dikembalikan nol.

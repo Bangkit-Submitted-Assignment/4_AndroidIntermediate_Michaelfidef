@@ -60,7 +60,7 @@
      Syarat :
       - Menampilkan list story dengan menggunakan Paging 3 dengan benar.
 
-**3. Membuat Testing**
+**7. Membuat Testing**
 
      Syarat :
       - Menerapkan unit test pada fungsi di dalam ViewModel yang mengambil list data Paging.
